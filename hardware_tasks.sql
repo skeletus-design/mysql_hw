@@ -1,57 +1,42 @@
--- 1.
-select count(movies.title)
-from movies 
-join companies on companies.id = movies.id_companies
-where companies.title like 'Universal Pictures';
+--- 1. Вывести суммарное количество единиц техники на складе (не товарных позиций, а товаров!)
+ select SUM(hardware.amount) AS "Сумма товаров на складе" 
+ from hardware ;
+
 -- 2.
-select count(movies.title)
-from movies
-join directors on directors.id = movies.id_directors
-where directors.full_name like 'Фрэнсис Форд Коппола';
+select id, title, price, amount as "Товары которые закончились"
+from hardware where hardware.amount = 0;
+
 -- 3.
-select count(movies.title) as 'Количество снятых фильмов за последние 20 лет'
-from movies
-where movies.year < 2023 and movies.year > 2003;
--- 4.
-select count(movies.id_genres) as 'Количество всех фильмов снятых Cпилдергом'
-from movies
-join directors on directors.id = movies.id_directors
-where directors.full_name like 'Стивен Спилберг';
+select avg(hardware.price) as "Средняя стоимость монитора"
+from hardware where hardware.title like "Монитор%";
+
+-- 4. 
+select * 
+from hardware where hardware.title like "Клавиатура%"
+order by hardware.price asc;
+
 -- 5.
-select movies.title, genres.title, directors.full_name
-from movies
-join genres on genres.id = movies.id_genres
-join directors on directors.id = movies.id_directors
-order by budget desc
-limit 5;
+select hardware.tag, count(*) as 'count'
+from hardware 
+group by hardware.tag 
+order by count desc;
+
 -- 6.
-select directors.full_name, count(movies.title) 
-from movies
-join directors on directors.id = movies.id_directors
-group by directors.full_name
-order by count(movies.id) desc
-limit 1;
+select count(*), hardware.tag
+from hardware where hardware.tag = 'discount';
+
 -- 7.
-select movies.title, genres.title, sum(movies.budget)
-from movies 
-join genres on genres.id = movies.id_genres
-join companies on companies.id = movies.id_companies
-group by companies.title
-order by sum(movies.budget) desc;
+select title, price
+from hardware 
+where hardware.tag = 'new'
+order by hardware.price desc
+limit 1;
+
 -- 8.
-select avg(movies.budget)
-from movies
-join companies on companies.id = movies.id_companies
-where companies.id = 5;
--- 9.
-select avg(movies.budget), count(genres.title)
-from movies
-join genres on genres.id = movies.id_genres
-group by genres.id
--- 10. 
+insert into hardware(title, price, tag, amount)
+value ('Ноутбук Lenovo 2BXKQ7E9XD', 54500, 'new', 1);
 
-
-
-
-
-
+-- 9. 
+delete from hardware
+where title = "Очки PS VR 2"
+limit 1
