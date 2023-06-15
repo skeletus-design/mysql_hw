@@ -6,10 +6,10 @@ group by authors_books.authors_id
 order by count(authors_books.authors_id) desc
 limit 1;
 -- 2.
-select books.title
+select *
 from books
-group by books.title
-order by count(books.year) asc
+where books.year is not null
+order by books.year asc
 limit 5;
 -- 3.
 select count(*) as "Книги на полке в кабинете"
@@ -43,19 +43,31 @@ join shelves on shelves.id = books.shelves_id
 where shelves.title like 'верхняя%' or 'нижняя%';
 -- 8.  
 update books
-set books.friends_id = 1
-where id = 9
-limit 1;
+join autors_books on autors_books.books_id = books.id
+set boooks.friends_id = (select friends.id from friends where friends.name = 'Иванов Иван');
 -- 9.
-insert books(title, year, shelves_id)
-value ('Краткие ответы на большие вопросы', '2020', '1');
+insert into authors 
+(name)
+values
+(
+"Стивен Хокинг"
+ );
 
-insert authors(name)
-value('Стивен Хокинг'); 
+insert into books 
+(title, year, shelves_id)
+values (
+	"Краткие ответы на большие вопросы", 
+     2020, 
+     (select shelves.id from shelves where shelves.title = "Полка в кабинете" limit 1)
+ );
 
-insert authors_books(books_id, authors_id)
-value('176','145')
-
+ insert into authors_books
+ (books_id, authors_id)
+ values 
+ (
+ 	(select books.id from books where books.title = "Краткие ответы на большие вопросы" and books.year = 2020 limit 1),
+ 	(select authors.id from authors where authors.name = "Стивен Хокинг" limit 1)
+ );
 
 
 
