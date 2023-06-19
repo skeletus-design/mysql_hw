@@ -1,4 +1,4 @@
-@@ -0,0 +1,57 @@
+
 -- 1.
 select count(movies.title)
 from movies 
