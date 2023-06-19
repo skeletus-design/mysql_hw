@@ -42,9 +42,12 @@ join authors on authors_books.authors_id = authors.id
 join shelves on shelves.id = books.shelves_id
 where shelves.title like 'верхняя%' or 'нижняя%';
 -- 8.  
-update books
-join autors_books on autors_books.books_id = books.id
-set boooks.friends_id = (select friends.id from friends where friends.name = 'Иванов Иван');
+UPDATE books
+JOIN authors_books ON authors_books.books_id = books.id
+JOIN authors ON authors_books.authors_id = authors.id
+SET books.friends_id = (SELECT friends.id FROM friends WHERE friends.name = 'Иванов Иван')
+WHERE authors.name = 'Данте Алигьери' AND books.title = 'Божественная комедия'
+AND books.id > 0;
 -- 9.
 insert into authors 
 (name)
