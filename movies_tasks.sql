@@ -10,9 +10,8 @@ from movies
 join directors on directors.id = movies.id_directors
 where directors.full_name like 'Фрэнсис Форд Коппола';
 -- 3.
-select count(movies.title) as 'Количество снятых фильмов за последние 20 лет'
-from movies
-where movies.year < 2023 and movies.year > 2003;
+SELECT COUNT(*) FROM movies
+WHERE year BETWEEN (YEAR(CURDATE()) - 20) AND YEAR(CURDATE());
 -- 4.
 select distinct genres.title
 from genres
