@@ -14,8 +14,9 @@ select count(movies.title) as 'Количество снятых фильмов 
 from movies
 where movies.year < 2023 and movies.year > 2003;
 -- 4.
-select count(movies.id_genres) as 'Количество всех фильмов снятых Cпилдергом'
-from movies
+select distinct genres.title
+from genres
+join movies on genres.id = movies.id_genres
 join directors on directors.id = movies.id_directors
 where directors.full_name like 'Стивен Спилберг';
 -- 5.
