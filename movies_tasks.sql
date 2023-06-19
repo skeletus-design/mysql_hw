@@ -33,12 +33,16 @@ group by directors.full_name
 order by count(movies.id) desc
 limit 1;
 -- 7.
-select movies.title, genres.title, sum(movies.budget)
+select movies.title, genres.title
 from movies 
 join genres on genres.id = movies.id_genres
-join companies on companies.id = movies.id_companies
-group by companies.title
-order by sum(movies.budget) desc;
+where id_companies = (
+	select companies.id from companies
+    join movies on movies.id_companies = companies.id
+		group by companies.id
+		order by sum(movies.budget) desc
+		limit 1)
+        ;
 -- 8.
 select avg(movies.budget)
 from movies
