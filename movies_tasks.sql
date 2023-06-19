@@ -1,4 +1,3 @@
-
 -- 1.
 select count(movies.title)
 from movies 
@@ -59,7 +58,3 @@ FROM movies
 JOIN genres ON genres.id = movies.id_genres
 WHERE genres.title = 'комедия' AND movies.title = 'Дикие истории' AND movies.year = 2014 AND movies.id > 0
 ;
-
-
-
-
