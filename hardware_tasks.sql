@@ -33,9 +33,11 @@ order by hardware.price desc
 limit 1;
 
 -- 8.
-insert into hardware(title, price, tag, amount)
-value ('Ноутбук Lenovo 2BXKQ7E9XD', 54500, 'new', 1);
-
+INSERT INTO hardware 
+(title, price, tag, amount) 
+VALUES 
+("Ноутбук Lenovo 2BXKQ7E9XD", 54500, "new", 1)
+;
 -- 9. 
 delete from hardware
 where title = "Очки PS VR 2"
