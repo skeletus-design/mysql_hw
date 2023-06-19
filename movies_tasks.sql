@@ -1,3 +1,4 @@
+@@ -0,0 +1,57 @@
 -- 1.
 select count(movies.title)
 from movies 
@@ -42,15 +43,18 @@ order by sum(movies.budget) desc;
 select avg(movies.budget)
 from movies
 join companies on companies.id = movies.id_companies
-where companies.id = 5;
+where companies.title like 'Warner Bros.';
 -- 9.
 select avg(movies.budget), count(genres.title)
 from movies
 join genres on genres.id = movies.id_genres
-group by genres.id
+group by genres.id;
 -- 10. 
-
-
+DELETE movies 
+FROM movies
+JOIN genres ON genres.id = movies.id_genres
+WHERE genres.title = 'комедия' AND movies.title = 'Дикие истории' AND movies.year = 2014 AND movies.id > 0
+;
 
 
 
